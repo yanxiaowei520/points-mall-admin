@@ -14,6 +14,7 @@ import {
 } from 'antd';
 import { PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
+import type { UploadRequestOption } from '@rc-component/upload/es/interface';
 import { useProducts } from '../../hooks/useProducts';
 import { PRODUCT_TYPE_OPTIONS } from '../../types/product';
 import type { ProductType } from '../../types/product';
@@ -137,13 +138,12 @@ function ProductFormPage() {
   };
 
   // Mock upload: use fake URL for demo
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const customRequest = (options: any) => {
+  const customRequest = (options: UploadRequestOption) => {
     const { file, onSuccess } = options;
     // Simulate upload delay and return a fake URL
     setTimeout(() => {
-      const fakeUrl = URL.createObjectURL(file);
-      onSuccess({ url: fakeUrl });
+      const fakeUrl = URL.createObjectURL(file as File);
+      onSuccess?.({ url: fakeUrl });
     }, 300);
   };
 
@@ -199,6 +199,11 @@ function ProductFormPage() {
               fileList={coverFile ? [coverFile] : []}
               onChange={handleCoverUpload}
               customRequest={customRequest}
+              beforeUpload={(file) => {
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isLt2M) message.error('图片大小不能超过 2MB');
+                return isLt2M || Upload.LIST_IGNORE;
+              }}
               accept=".jpg,.jpeg,.png"
             >
               {!coverFile && (
@@ -217,6 +222,11 @@ function ProductFormPage() {
               fileList={detailFiles}
               onChange={handleDetailUpload}
               customRequest={customRequest}
+              beforeUpload={(file) => {
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isLt2M) message.error('图片大小不能超过 2MB');
+                return isLt2M || Upload.LIST_IGNORE;
+              }}
               accept=".jpg,.jpeg,.png"
             >
               {detailFiles.length < 10 && (
