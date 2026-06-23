@@ -1,0 +1,21 @@
+.top-nav {
+  display: flex;
+  align-items: center;
+  background: #001529 !important;
+  padding: 0 24px !important;
+  height: 56px !important;
+  line-height: 56px !important;
+}
+
+.top-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.top-nav-title {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}

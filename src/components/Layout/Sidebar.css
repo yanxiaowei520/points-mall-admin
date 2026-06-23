@@ -1,0 +1,10 @@
+.sidebar {
+  background: #fff !important;
+  border-right: 1px solid #f0f0f0;
+  min-height: calc(100vh - 56px);
+}
+
+.sidebar-menu {
+  border-inline-end: none !important;
+  margin-top: 8px;
+}
