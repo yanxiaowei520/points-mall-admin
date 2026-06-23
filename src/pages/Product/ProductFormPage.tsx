@@ -137,7 +137,8 @@ function ProductFormPage() {
   };
 
   // Mock upload: use fake URL for demo
-  const customRequest = (options: { file: File; onSuccess: (body: Record<string, unknown>) => void }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const customRequest = (options: any) => {
     const { file, onSuccess } = options;
     // Simulate upload delay and return a fake URL
     setTimeout(() => {
