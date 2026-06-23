@@ -56,6 +56,24 @@ describe('LoginForm', () => {
     expect(onLogin).not.toHaveBeenCalled();
   });
 
+  it('clears error on successful re-submit after validation failure', async () => {
+    const onLogin = vi.fn();
+    render(<LoginForm onLogin={onLogin} />);
+
+    // First submit with empty fields triggers error
+    await userEvent.click(screen.getByRole('button', { name: '登录' }));
+    expect(screen.getByText('用户名不能为空')).toBeInTheDocument();
+
+    // Fill fields and submit again
+    await userEvent.type(screen.getByLabelText('用户名'), 'admin');
+    await userEvent.type(screen.getByLabelText('密码'), '123456');
+    await userEvent.click(screen.getByRole('button', { name: '登录' }));
+
+    // Error should be cleared
+    expect(screen.queryByText('用户名不能为空')).not.toBeInTheDocument();
+    expect(onLogin).toHaveBeenCalledWith('admin', '123456');
+  });
+
   it('clears fields after successful login', async () => {
     const onLogin = vi.fn();
     render(<LoginForm onLogin={onLogin} />);

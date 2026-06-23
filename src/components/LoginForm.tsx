@@ -18,7 +18,7 @@ function LoginForm({ onLogin }: LoginFormProps) {
       return;
     }
 
-    if (!password) {
+    if (!password.trim()) {
       setError('密码不能为空');
       return;
     }
@@ -43,6 +43,7 @@ function LoginForm({ onLogin }: LoginFormProps) {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoComplete="username"
           />
         </div>
 
@@ -53,6 +54,7 @@ function LoginForm({ onLogin }: LoginFormProps) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
           />
         </div>
 
