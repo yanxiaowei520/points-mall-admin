@@ -1,0 +1,9 @@
+.product-form-page {
+  padding: 24px;
+}
+
+.product-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
